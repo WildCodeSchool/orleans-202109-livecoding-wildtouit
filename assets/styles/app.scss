@@ -1,7 +1,13 @@
 @import 'variables.scss';
 
+@import "~bootstrap/scss/bootstrap";
+
 body {
     margin:0;
-    background-color: $wild-color;
+    background-color: $dark;
     color: $light;
+}
+
+h1 {
+    font-family: var(--title);
 }
