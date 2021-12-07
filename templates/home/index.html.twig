@@ -3,7 +3,12 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-<div class="">
+<div class="container-fluid">
     <h1>Wild Touit</h1>
+
+    {% for touit in touits %}
+        <p>{{ touit.message }}</p>
+        <div>{{ touit.createdAt|date('d/m/Y') }}</div>
+    {% endfor %}
 </div>
 {% endblock %}
