@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TouitRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TouitRepository::class)
@@ -20,6 +21,8 @@ class Touit
 
     /**
      * @ORM\Column(type="string", length=120)
+     * @Assert\Length(max=120)
+     * @Assert\NotBlank
      */
     private string $message;
 
