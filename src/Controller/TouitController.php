@@ -46,7 +46,7 @@ class TouitController extends AbstractController
             'touit' => $touit,
             'form' => $form,
         ]);
-    }   
+    }
 
     /**
      * @Route("/{id}/edit", name="touit_edit", methods={"GET", "POST"})
@@ -73,7 +73,9 @@ class TouitController extends AbstractController
      */
     public function delete(Request $request, Touit $touit, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$touit->getId(), $request->request->get('_token'))) {
+        /** @var string|null */
+        $token = $request->request->get('_token');
+        if ($this->isCsrfTokenValid('delete' . $touit->getId(), $token)) {
             $entityManager->remove($touit);
             $entityManager->flush();
         }
