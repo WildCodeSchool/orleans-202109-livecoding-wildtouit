@@ -1,0 +1,11 @@
+@import 'variables.scss';
+
+.button-add {
+    position: fixed;
+    bottom: 3*$spacing;
+    right: 3*$spacing;
+    svg {
+        width: 60px;
+        aspect-ratio: 1 / 1;
+    }
+}
