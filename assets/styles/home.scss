@@ -1,11 +1,14 @@
-@import 'variables.scss';
+@import 'variables';
 
 .button-add {
+    bottom: 3 * $spacing;
     position: fixed;
-    bottom: 3*$spacing;
-    right: 3*$spacing;
+    right: 3 * $spacing;
+
     svg {
+        height: 60px;
         width: 60px;
-        aspect-ratio: 1 / 1;
     }
 }
+
+
