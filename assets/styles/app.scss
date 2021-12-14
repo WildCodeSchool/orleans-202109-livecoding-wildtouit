@@ -1,7 +1,14 @@
-@import 'variables.scss';
+@import 'variables';
+
+@import '~bootstrap/scss/bootstrap';
 
 body {
-    margin:0;
-    background-color: $wild-color;
+    background-color: $dark;
     color: $light;
+    margin: 0;
+    padding-top: 70px;
+}
+
+h1 {
+    font-family: $title;
 }

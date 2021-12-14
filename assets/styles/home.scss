@@ -1,0 +1,14 @@
+@import 'variables';
+
+.button-add {
+    bottom: 3 * $spacing;
+    position: fixed;
+    right: 3 * $spacing;
+
+    svg {
+        height: 60px;
+        width: 60px;
+    }
+}
+
+
