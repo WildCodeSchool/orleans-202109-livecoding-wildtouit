@@ -1,15 +1,22 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Wild Touit</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="#">Mon fil</a>
-        <a class="nav-link">Nouveau message</a>
-        <a class="nav-link" href="#">Mon profil</a>
-      </div>
-    </div>
-  </div>
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">Wild Touit</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+				<a class="nav-link" href="#">Mon fil</a>
+				<a class="nav-link">Nouveau message</a>
+				<a class="nav-link" href="#">Mon profil</a>
+				{% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
+					Bienvenue
+					{{ app.user.username }}
+					<a class="nav-link" href="{{ path('logout') }}">Se déconnecter</a>
+				{% else %}
+					<a class="nav-link" href="{{ path('login') }}">Se connecter</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 </nav>
