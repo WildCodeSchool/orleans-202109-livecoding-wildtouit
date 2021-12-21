@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Members{% endblock %}
+
+{% block body %}
+<h1>Membres</h1>
+{% for member in members %}
+    <div>{{ member.username }}</div>
+{% endfor %}
+{% endblock %}
