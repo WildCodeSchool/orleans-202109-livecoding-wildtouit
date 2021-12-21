@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -34,6 +36,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private string $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Touit::class, mappedBy="user")
+     */
+    private Collection $touits;
+
+    public function __construct()
+    {
+        $this->touits = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -117,5 +129,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Touit[]
+     */
+    public function getTouits(): Collection
+    {
+        return $this->touits;
+    }
+
+    public function addTouit(Touit $touit): self
+    {
+        if (!$this->touits->contains($touit)) {
+            $this->touits[] = $touit;
+            $touit->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTouit(Touit $touit): self
+    {
+        if ($this->touits->removeElement($touit)) {
+            // set the owning side to null (unless already changed)
+            if ($touit->getUser() === $this) {
+                $touit->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

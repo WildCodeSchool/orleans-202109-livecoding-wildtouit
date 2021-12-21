@@ -32,18 +32,20 @@ class UserFixtures extends Fixture
             );
 
             $user->setPassword($hashedPassword);
+            $this->addReference('user' . $i, $user);
             $manager->persist($user);
         }
 
-        $user = new User();
-        $user->setUsername('bilbo');
+        $bilbo = new User();
+        $bilbo->setUsername('bilbo');
+        $this->addReference('bilbo', $bilbo);
 
         $hashedPassword = $this->passwordHasher->hashPassword(
-            $user,
+            $bilbo,
             'baggins'
         );
-        $user->setPassword($hashedPassword);
-        $manager->persist($user);
+        $bilbo->setPassword($hashedPassword);
+        $manager->persist($bilbo);
 
         $manager->flush();
     }
