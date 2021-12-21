@@ -26,6 +26,7 @@ class TouitController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/new", name="touit_new", methods={"GET", "POST"})
      */

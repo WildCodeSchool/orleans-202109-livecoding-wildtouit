@@ -31,6 +31,12 @@ class Touit
      */
     private DateTimeImmutable $createdAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="touits")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private ?User $user;
+
     public function __construct()
     {
         $this->setCreatedAt(new DateTimeImmutable());
@@ -61,6 +67,18 @@ class Touit
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

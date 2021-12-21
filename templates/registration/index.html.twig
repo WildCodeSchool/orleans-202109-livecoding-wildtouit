@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RegistrationController!{% endblock %}
+
+{% block body %}
+    <h1>Créer un compter</h1>
+    <div class="container">
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success">Créer un compte</button>
+    {{ form_end(form) }}
+    </div>
+
+{% endblock %}

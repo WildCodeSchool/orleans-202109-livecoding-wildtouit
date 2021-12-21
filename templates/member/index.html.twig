@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Members
+{% endblock %}
+
+{% block body %}
+	<h1>Membres</h1>
+	{% for member in members %}
+		<div>{{ member.username }}
+			<a class="btn btn-sm btn-primary" href="{{ path('member_touits', {'user': member.id}) }}">Voir les touits</a>
+			<span class="badge bg-primary">{{ member.touits|length }}</span>
+		</div>
+	{% endfor %}
+{% endblock %}
