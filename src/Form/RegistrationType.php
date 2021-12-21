@@ -27,7 +27,7 @@ class RegistrationType extends AbstractType
             ->add('email', EmailType::class)
             ->add('birthdate', BirthdayType::class, [
                 'label' => 'date de naissance',
-                'widget' => 'single_text'
+                'widget' => 'single_text',
             ]);
     }
 
