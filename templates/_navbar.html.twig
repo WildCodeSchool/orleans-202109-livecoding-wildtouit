@@ -6,7 +6,9 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
-				<a class="nav-link" href="{{ path('my_touit') }}">Mon fil</a>
+				{% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
+					<a class="nav-link" href="{{ path('member_touits', {'user': app.user.id}) }}">Mon fil</a>
+				{% endif %}
 				<a class="nav-link" href="{{ path('member') }}">Membres</a>
 				<a class="nav-link">Nouveau message</a>
 				<a class="nav-link" href="#">Mon profil</a>
