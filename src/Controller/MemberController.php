@@ -22,6 +22,15 @@ class MemberController extends AbstractController
     }
 
     /**
+     * @Route("/member/profile", name="member_profile", methods={"GET"})
+     * @isGranted("ROLE_USER");
+     */
+    public function profile(): Response
+    {
+        return $this->render('member/profile.html.twig');
+    }
+
+    /**
      * @Route("/member/{user}", name="member_touits", methods={"GET"})
      * @isGranted("ROLE_USER");
      */
