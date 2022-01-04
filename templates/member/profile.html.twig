@@ -10,4 +10,6 @@
         <li>{{ app.user.email }}</li>
         <li>{{ app.user.birthdate|date('D d/m/Y') }}</li>
     </ul>
+
+    <a class="btn btn-primary" href="{{ path('member_profile_edit') }}">Edit profile</a>
 {% endblock %}
