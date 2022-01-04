@@ -6,7 +6,14 @@
 {% block body %}
 	<h1>Membres</h1>
 	{% for member in members %}
-		<div>{{ member.username }}
+		<div>
+			{{ member.username }}
+			{% if member.avatarPath %}
+				<img class="rounded-circle" src="/uploads/{{ member.avatarPath }}" alt="avatar de {{ member.username }}">
+			{% else %}
+				<img class="rounded-circle" src="{{ asset('build/images/avatar.jpg') }}" alt="pas d'avatar">
+			{% endif %}
+
 			<a class="btn btn-sm btn-primary" href="{{ path('member_touits', {'user': member.id}) }}">Voir les touits</a>
 			<span class="badge bg-primary">{{ member.touits|length }}</span>
 		</div>
