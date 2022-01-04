@@ -11,7 +11,7 @@
 				{% endif %}
 				<a class="nav-link" href="{{ path('member') }}">Membres</a>
 				<a class="nav-link">Nouveau message</a>
-				<a class="nav-link" href="#">Mon profil</a>
+				<a class="nav-link" href="{{ path('member_profile') }}">Mon profil</a>
 				{% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
 					Bienvenue
 					{{ app.user.username }}

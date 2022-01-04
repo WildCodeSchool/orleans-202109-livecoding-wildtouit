@@ -11,7 +11,7 @@
 		<li>{{ app.user.birthdate|date('D d/m/Y') }}</li>
 
 		{% if app.user.avatarPath %}
-			<img class="rounded-circle" src="/uploads/{{ app.user.avatarPath }}" alt="avatar de {{ app.user.username }}">
+			<img  class="rounded-circle" src="{{ vich_uploader_asset(app.user) }}" alt="{{ app.user.username }}">
 		{% else %}
 			<img class="rounded-circle" src="{{ asset('build/images/avatar.jpg') }}" alt="pas d'avatar">
 		{% endif %}

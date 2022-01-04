@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProfileType extends AbstractType
 {
@@ -19,7 +20,8 @@ class ProfileType extends AbstractType
             ->add('birthdate', BirthdayType::class, [
                 'label' => 'date de naissance',
                 'widget' => 'single_text',
-            ]);
+            ])
+            ->add('avatarFile', VichImageType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
