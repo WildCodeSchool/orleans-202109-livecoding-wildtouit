@@ -3,16 +3,20 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @Vich\Uploadable
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -61,8 +65,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private DateTimeInterface $birthdate;
 
+    /**
+     * @Vich\UploadableField(mapping="avatars", fileNameProperty="avatarPath")
+     * @var File|null
+     * @Assert\File(
+     *     maxSize = "1M",
+     *     mimeTypes = {"image/jpg", "image/jpeg", "image/png"},
+     * )
+     */
+    private $avatarFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     */
+    private DateTimeInterface $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $avatarPath;
+
     public function __construct()
     {
+        $this->updatedAt = new DateTimeImmutable();
         $this->touits = new ArrayCollection();
     }
 
@@ -202,5 +228,57 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->birthdate = $birthdate;
 
         return $this;
+    }
+
+    public function getAvatarPath(): ?string
+    {
+        return $this->avatarPath;
+    }
+
+    public function setAvatarPath(?string $avatarPath): self
+    {
+        $this->avatarPath = $avatarPath;
+
+        return $this;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     */
+    public function setAvatarFile(?File $avatarFile = null): void
+    {
+        $this->avatarFile = $avatarFile;
+
+        if (null !== $avatarFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new DateTimeImmutable();
+        }
+    }
+
+    public function getAvatarFile(): ?File
+    {
+        return $this->avatarFile;
+    }
+
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'username' => $this->getUserIdentifier(),
+            'password' => $this->getPassword(),
+        ];
+    }
+
+    /**
+     * Get the value of updatedAt
+     */
+    public function getUpdatedAt(): DateTimeInterface
+    {
+        return $this->updatedAt;
     }
 }

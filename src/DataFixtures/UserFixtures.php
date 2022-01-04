@@ -27,6 +27,12 @@ class UserFixtures extends Fixture
             $user->setUsername($faker->userName());
             $user->setEmail($faker->email());
             $user->setBirthdate($faker->dateTimeThisCentury());
+            $user->setAvatarPath('avatar' . $i . '.jpg');
+            copy(
+                'https://randomuser.me/api/portraits/men/' . $i . '.jpg',
+                __DIR__ . '/../../public/uploads/avatars/avatar' . $i . '.jpg'
+            );
+
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
                 $faker->password(2, 6)
@@ -40,6 +46,8 @@ class UserFixtures extends Fixture
         $bilbo = new User();
         $bilbo->setUsername('bilbo');
         $bilbo->setEmail('bilbo@baggins.me');
+        $bilbo->setAvatarPath('bilbo.jpg');
+        copy(__DIR__ . '/bilbo.jpg', __DIR__ . '/../../public/uploads/avatars/bilbo.jpg');
         $bilbo->setBirthdate($faker->dateTimeThisCentury());
 
         $this->addReference('bilbo', $bilbo);
