@@ -12,7 +12,7 @@
 		<h1>Wild Touit</h1>
 
 		{% for touit in touits %}
-			{% include 'includes/_touit.html.twig' with {'touit' : touit} %}
+			{% include 'includes/_touit.html.twig' with {'touit': touit} %}
 		{% endfor %}
 
 		<a class="button-add" href="{{ path('touit_new') }}">
