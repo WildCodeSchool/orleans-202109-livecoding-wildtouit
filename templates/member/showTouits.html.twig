@@ -10,14 +10,12 @@
 {% block body %}
 	<div class="container-fluid">
 		{% if app.user == member %}
-		<h1>Mes touits</h1>
+			<h1>Mes touits</h1>
 		{% else %}
-		<h1>Touits de {{ member.username }}</h1>
+			<h1>Touits de {{ member.username }}</h1>
 		{% endif %}
 		{% for touit in member.touits %}
-			<p>{{ touit.message }}</p>
-			<div>{{ touit.createdAt|date('d/m/Y') }}</div>
+			{% include 'includes/_touit.html.twig' with {'touit': touit} %}
 		{% endfor %}
-
 	</div>
 {% endblock %}

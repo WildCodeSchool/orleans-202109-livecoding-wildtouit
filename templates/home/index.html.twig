@@ -12,8 +12,7 @@
 		<h1>Wild Touit</h1>
 
 		{% for touit in touits %}
-			<p>{{ touit.message }}</p>
-			<div>{{ touit.createdAt|date('d/m/Y') }}</div>
+			{% include 'includes/_touit.html.twig' with {'touit' : touit} %}
 		{% endfor %}
 
 		<a class="button-add" href="{{ path('touit_new') }}">

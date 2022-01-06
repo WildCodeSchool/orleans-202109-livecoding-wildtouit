@@ -5,20 +5,26 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			<div class="navbar-nav">
-				{% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
-					<a class="nav-link" href="{{ path('member_touits', {'user': app.user.id}) }}">Mon fil</a>
-				{% endif %}
-				<a class="nav-link" href="{{ path('member') }}">Membres</a>
-				<a class="nav-link">Nouveau message</a>
-				<a class="nav-link" href="{{ path('member_profile') }}">Mon profil</a>
-				{% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
-					Bienvenue
-					{{ app.user.username }}
-					<a class="nav-link" href="{{ path('logout') }}">Se déconnecter</a>
-				{% else %}
-					<a class="nav-link" href="{{ path('login') }}">Se connecter</a>
-				{% endif %}
+			<div class="w-100 navbar-nav d-flex justify-content-between ">
+				<div class="d-flex">
+					{% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
+						<a class="nav-link" href="{{ path('member_touits', {'user': app.user.id}) }}">Mon fil</a>
+					{% endif %}
+					<a class="nav-link" href="{{ path('member') }}">Membres</a>
+					<a class="nav-link">Nouveau message</a>
+					<a class="nav-link" href="{{ path('member_profile') }}">Mon profil</a>
+				</div>
+				<div class="d-flex align-items-center">
+					{% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
+						<span>
+							Bienvenue
+							{{ app.user.username }}
+						</span>
+						<a class="btn btn-dark mx-2" href="{{ path('logout') }}">Se déconnecter</a>
+					{% else %}
+						<a class="btn btn-dark mx-2" href="{{ path('login') }}">Se connecter</a>
+					{% endif %}
+				</div>
 			</div>
 		</div>
 	</div>
