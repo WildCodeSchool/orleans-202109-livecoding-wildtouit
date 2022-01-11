@@ -2,11 +2,7 @@
     min-width: 360px;
     display: grid; 
     grid-template-columns: 30% 70%;
-    grid-template-areas: 
-        "avatar title" 
-        "avatar date" 
-        "message message" 
-        "options options" 
+    grid-template-areas: "avatar title" "avatar date" "message message" "options options"
     ;
 
     color: $dark;
@@ -14,6 +10,7 @@
 
     .avatar {
         grid-area: avatar;
+
         img {
             width: 100%;
             max-width: 150px;
@@ -33,12 +30,14 @@
     .message {
         grid-area: message;
     } 
-    
+
     .options {
         grid-area: options;
         background-color: $primary;
+
         a {
             color:$light;
+
             svg {
                 height: 1.8rem;
             }
@@ -47,7 +46,9 @@
 }
 
 .member {
+
     .avatar {
+
         img {
             object-fit: cover;
             aspect-ratio: 1/1;
