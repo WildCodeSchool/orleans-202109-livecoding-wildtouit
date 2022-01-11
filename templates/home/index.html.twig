@@ -11,6 +11,7 @@
 	<div class="container-fluid">
 		<h1>Wild Touit</h1>
 
+		<div>Number of touits {{ touits|length }}</div>
 		{% for touit in touits %}
 			{% include 'includes/_touit.html.twig' with {'touit': touit} %}
 		{% endfor %}

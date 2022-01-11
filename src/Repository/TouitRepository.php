@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Touit;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,22 +20,23 @@ class TouitRepository extends ServiceEntityRepository
         parent::__construct($registry, Touit::class);
     }
 
-    // /**
-    //  * @return Touit[] Returns an array of Touit objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Touit[] Returns an array of Touit objects
+     */
+
+    public function findFromFollowedUsers(User $user): array
     {
+        $followerdUsers = $user->getFollowedUsers();
+
+        /** @var array */
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('t.user IN(:users)')
+            ->setParameter('users', $followerdUsers)
+            ->orderBy('t.createdAt', 'DESC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Touit

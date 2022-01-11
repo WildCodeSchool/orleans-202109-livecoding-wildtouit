@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\TouitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,14 @@ class HomeController extends AbstractController
      */
     public function index(TouitRepository $touitRepository): Response
     {
-        $touits = $touitRepository->findAll();
-        return $this->render('home/index.html.twig', ['touits' => $touits]);
+        if ($this->isGranted('ROLE_USER')) {
+            $user = $this->getUser();
+            if ($user instanceof User) {
+                $touits = $touitRepository->findFromFollowedUsers($user);
+            }
+        } else {
+            $touits = $touitRepository->findAll();
+        }
+        return $this->render('home/index.html.twig', ['touits' => $touits ?? []]);
     }
 }
