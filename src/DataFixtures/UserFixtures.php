@@ -39,8 +39,19 @@ class UserFixtures extends Fixture
             );
 
             $user->setPassword($hashedPassword);
+
             $this->addReference('user' . $i, $user);
+
             $manager->persist($user);
+        }
+
+        for ($i = 0; $i < self::USER_NUMBER; $i++) {
+            $user = $this->getReference('user' . $i);
+            $followersKeys = array_rand(range(0, self::USER_NUMBER - 1), 3);
+
+            foreach ($followersKeys as $followersKey) {
+                $user->addFollower($this->getReference('user' . $followersKey));
+            }
         }
 
         $bilbo = new User();

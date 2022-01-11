@@ -56,6 +56,24 @@ class MemberController extends AbstractController
     }
 
     /**
+     * @Route("/member/follow/{user}", name="member_follow", methods={"POST"})
+     * @isGranted("ROLE_USER");
+     */
+    public function toggleFollow(User $user, EntityManagerInterface $entityManager): Response
+    {
+        /** @var User */
+        $connectedUser = $this->getUser();
+        if ($user->getFollowers()->contains($connectedUser)) {
+            $connectedUser->removeFollowedUser($user);
+        } else {
+            $connectedUser->addFollowedUser($user);
+        }
+        $entityManager->flush();
+
+        return $this->redirectToRoute('member');
+    }
+
+    /**
      * @Route("/member/{user}", name="member_touits", methods={"GET"})
      * @isGranted("ROLE_USER");
      */

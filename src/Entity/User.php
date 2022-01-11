@@ -86,10 +86,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private ?string $avatarPath;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="followers")
+     */
+    private Collection $followedUsers;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="followedUsers")
+     */
+    private Collection $followers;
+
+
     public function __construct()
     {
         $this->updatedAt = new DateTimeImmutable();
         $this->touits = new ArrayCollection();
+        $this->followedUsers = new ArrayCollection();
+        $this->followers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -280,5 +293,56 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUpdatedAt(): DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getFollowedUsers(): Collection
+    {
+        return $this->followedUsers;
+    }
+
+    public function addFollowedUser(self $followedUser): self
+    {
+        if (!$this->followedUsers->contains($followedUser)) {
+            $this->followedUsers[] = $followedUser;
+        }
+
+        return $this;
+    }
+
+    public function removeFollowedUser(self $followedUser): self
+    {
+        $this->followedUsers->removeElement($followedUser);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getFollowers(): Collection
+    {
+        return $this->followers;
+    }
+
+    public function addFollower(self $follower): self
+    {
+        if (!$this->followers->contains($follower)) {
+            $this->followers[] = $follower;
+            $follower->addFollowedUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFollower(self $follower): self
+    {
+        if ($this->followers->removeElement($follower)) {
+            $follower->removeFollowedUser($this);
+        }
+
+        return $this;
     }
 }

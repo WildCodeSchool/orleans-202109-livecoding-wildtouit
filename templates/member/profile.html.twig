@@ -11,10 +11,19 @@
 		<li>{{ app.user.birthdate|date('D d/m/Y') }}</li>
 
 		{% if app.user.avatarPath %}
-			<img  class="rounded-circle" src="{{ vich_uploader_asset(app.user) }}" alt="{{ app.user.username }}">
+			<img class="rounded-circle" src="{{ vich_uploader_asset(app.user) }}" alt="{{ app.user.username }}">
 		{% else %}
 			<img class="rounded-circle" src="{{ asset('build/images/avatar.jpg') }}" alt="pas d'avatar">
 		{% endif %}
+	</ul>
+
+	<h2>Followed Users</h2>
+	<ul>
+		{% for followed_user in app.user.followedUsers %}
+			<li>
+				{{ followed_user.username }}
+			</li>
+		{% endfor %}
 	</ul>
 
 	<a class="btn btn-primary" href="{{ path('member_profile_edit') }}">Edit profile</a>
