@@ -14,7 +14,7 @@
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
-	<body>
+	<body {{ stimulus_controller('symfony/ux-swup/swup') }}>
 		{% block navbar %}
 			{% include '_navbar.html.twig' %}
 		{% endblock %}
@@ -34,7 +34,7 @@
         'App\\Controller\\MemberController::lastMembers', {max: 5}
     	)) }}
 		{% endblock %}
-		<main class="container">
+		<main id="swup" class="container">
 		{% block body %}{% endblock %}
 		</main>
 	</body>
