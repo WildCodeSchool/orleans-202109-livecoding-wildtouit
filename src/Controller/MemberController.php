@@ -26,6 +26,13 @@ class MemberController extends AbstractController
         ]);
     }
 
+    public function lastMembers(UserRepository $userRepository, int $max = 3): Response
+    {
+        return $this->render('member/_last_users.html.twig', [
+            'lastUsers' => $userRepository->findBy([], null, $max),
+        ]);
+    }
+
     /**
      * @Route("/member/profile", name="member_profile", methods={"GET"})
      * @isGranted("ROLE_USER");

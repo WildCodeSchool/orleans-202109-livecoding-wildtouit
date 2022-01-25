@@ -37,6 +37,11 @@ class Touit
      */
     private ?User $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     */
+    private ?User $recipient;
+
     public function __construct()
     {
         $this->setCreatedAt(new DateTimeImmutable());
@@ -79,6 +84,18 @@ class Touit
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getRecipient(): ?User
+    {
+        return $this->recipient;
+    }
+
+    public function setRecipient(?User $recipient): self
+    {
+        $this->recipient = $recipient;
 
         return $this;
     }

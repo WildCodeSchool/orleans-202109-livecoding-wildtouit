@@ -28,6 +28,14 @@
 				{% endfor %}
 			{% endfor %}
 		{% endblock %}
+
+		{% block lastUsers %}
+		{{ render(controller(
+        'App\\Controller\\MemberController::lastMembers', {max: 5}
+    	)) }}
+		{% endblock %}
+		<main class="container">
 		{% block body %}{% endblock %}
+		</main>
 	</body>
 </html>

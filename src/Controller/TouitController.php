@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Touit;
 use App\Form\TouitType;
 use App\Repository\TouitRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,10 +31,13 @@ class TouitController extends AbstractController
     /**
      * @Route("/new", name="touit_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository
+    ): Response {
         $touit = new Touit();
-        $form = $this->createForm(TouitType::class, $touit);
+        $form = $this->createForm(TouitType::class, $touit, ['user' => $this->getUser()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

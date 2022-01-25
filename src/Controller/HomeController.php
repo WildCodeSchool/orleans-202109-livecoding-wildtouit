@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\TouitRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,7 +15,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(TouitRepository $touitRepository): Response
+    public function index(TouitRepository $touitRepository, UserRepository $userRepository): Response
     {
         if ($this->isGranted('ROLE_USER')) {
             $user = $this->getUser();
@@ -24,6 +25,9 @@ class HomeController extends AbstractController
         } else {
             $touits = $touitRepository->findAll();
         }
-        return $this->render('home/index.html.twig', ['touits' => $touits ?? []]);
+
+        return $this->render('home/index.html.twig', [
+            'touits' => $touits ?? [],
+        ]);
     }
 }

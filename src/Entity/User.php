@@ -396,4 +396,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getCustomUsername(): string
+    {
+        return $this->username . ' ' . count($this->getFollowers());
+    }
 }
