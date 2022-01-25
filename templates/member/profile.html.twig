@@ -8,6 +8,11 @@
 	<ul>
 		<li>{{ app.user.username }}</li>
 		<li>{{ app.user.email }}</li>
+		<li>{{ app.user.city }}
+		<a href="https://www.openstreetmap.org/#map=10/{{ app.user.longitude }}/{{ app.user.latitude }}" target="_blank">Voir sur une carte</a>
+		</li>
+		<li>Latitude {{ app.user.latitude }}</li>
+		<li>Longitude {{ app.user.longitude }}</li>
 		<li>{{ app.user.birthdate|date('D d/m/Y') }}</li>
 
 		{% if app.user.avatarPath %}

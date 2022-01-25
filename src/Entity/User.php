@@ -96,6 +96,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private Collection $followers;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $city;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private ?float $latitude;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private ?float $longitude;
+
 
     public function __construct()
     {
@@ -342,6 +357,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->followers->removeElement($follower)) {
             $follower->removeFollowedUser($this);
         }
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(?float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(?float $longitude): self
+    {
+        $this->longitude = $longitude;
 
         return $this;
     }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ProfileType;
 use App\Repository\UserRepository;
+use App\Service\AddressService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,15 +39,25 @@ class MemberController extends AbstractController
      * @Route("/member/profile/edit", name="member_profile_edit")
      * @isGranted("ROLE_USER");
      */
-    public function editProfile(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function editProfile(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        AddressService $addressService
+    ): Response {
         $user = $this->getUser();
         $form = $this->createForm(ProfileType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $user */
+            if ($user->getCity() !== null) {
+                $coordinates = $addressService->getCoordinates($user->getCity());
+                $user->setLatitude($coordinates[0]);
+                $user->setLongitude($coordinates[1]);
+            }
             $entityManager->flush();
             $this->addFlash('success', 'Votre profil a bien été édité');
+
             return $this->redirectToRoute('member_profile');
         }
 

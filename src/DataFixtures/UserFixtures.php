@@ -20,13 +20,16 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create();
+        $faker = Factory::create('fr_FR');
 
         for ($i = 0; $i < self::USER_NUMBER; $i++) {
             $user = new User();
             $user->setUsername($faker->userName());
             $user->setEmail($faker->email());
             $user->setBirthdate($faker->dateTimeThisCentury());
+            $user->setCity($faker->city());
+            $user->setLatitude($faker->latitude());
+            $user->setLongitude($faker->longitude());
             $user->setAvatarPath('avatar' . $i . '.jpg');
             copy(
                 'https://randomuser.me/api/portraits/men/' . $i . '.jpg',
@@ -58,6 +61,7 @@ class UserFixtures extends Fixture
         $bilbo->setUsername('bilbo');
         $bilbo->setEmail('bilbo@baggins.me');
         $bilbo->setAvatarPath('bilbo.jpg');
+        $bilbo->setCity('Orléans');
         copy(__DIR__ . '/bilbo.jpg', __DIR__ . '/../../public/uploads/avatars/bilbo.jpg');
         $bilbo->setBirthdate($faker->dateTimeThisCentury());
 

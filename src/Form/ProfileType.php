@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -21,7 +22,11 @@ class ProfileType extends AbstractType
                 'label' => 'date de naissance',
                 'widget' => 'single_text',
             ])
-            ->add('avatarFile', VichImageType::class);
+            ->add('avatarFile', VichImageType::class, [
+                'required' => false,
+            ])
+            ->add('city', TextType::class)
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
